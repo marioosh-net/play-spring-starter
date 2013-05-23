@@ -1,0 +1,30 @@
+@(message: String, users: List[dao.entity.User])
+
+@main("Play2 + Spring3 + Hibernate3") {
+    
+    <h1>@message</h1>
+    
+    <form action="/add" method="post">  
+        login:<input type="text" name="login"/><br/>
+        name:<input type="text" name="name"/>
+        <input type="submit" value="add"/>
+    </form>
+    
+    <h1>users</h1>
+    <table>
+    <thead>
+        <tr>
+        <td>id</td>
+        <td>login</td>
+        <td>name</td>
+        </tr>
+    </thead>
+    @for(u <- users) {
+    <tr>
+        <td>@u.getId()</td>
+        <td>@u.getLogin()</td>
+        <td>@u.getName()</td>
+    </tr>
+    }
+    </table>
+}
