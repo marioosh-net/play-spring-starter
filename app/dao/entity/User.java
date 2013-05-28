@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotEmpty;
+import play.data.validation.Constraints.Required;
 
 @Entity
 public class User {
@@ -11,8 +13,10 @@ public class User {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
+	@Required
 	private String login;
+	
 	private String name;
 	
 	public Long getId() {

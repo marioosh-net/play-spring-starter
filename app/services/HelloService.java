@@ -4,7 +4,7 @@ package services;
 public class HelloService {
 
 	public String hello() {
-		return "Play2 + Spring3 + Hibernate3";
+		return "Hello service";
 	}
 
 }

@@ -24,7 +24,10 @@ public class Application extends Controller {
 	private UserDAO userDAO;
 
 	public Result index() {
-		
+		return renderForm(Form.form(User.class));
+	}
+	
+	public Result renderForm(final Form f) {
 		return async(Akka.future(new Callable<Object>() {
 
 			@Override
@@ -36,16 +39,18 @@ public class Application extends Controller {
 			@Override
 			public Result apply(Object a) throws Throwable {
 				Object[] b = (Object[]) a;
-				return ok(index.render((String)b[0], (List<User>)b[1]));
+				return ok(index.render((String)b[0], (List<User>)b[1], f));
 			}
-		}));
+		}));		
 	}
 
 	public Result add() {
-		Form<User> userForm = Form.form(User.class);
-		userForm = userForm.bindFromRequest();
+		Form<User> userForm = Form.form(User.class).bindFromRequest();
+		if(userForm.hasErrors()) {
+			return badRequest(index.render(helloService.hello(), userDAO.find(), userForm));
+		}
 		userDAO.add(userForm.get());
-		return redirect("/");
+		return index();
 	}
 
 }
