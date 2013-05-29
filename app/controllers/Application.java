@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Async;
 import play.Logger;
 import play.data.Form;
 import play.libs.Akka;
+import play.libs.Json;
 import play.libs.F.Function;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -69,4 +70,12 @@ public class Application extends Controller {
 		return index(); 
 	}
 
+	/**
+	 * users as json
+	 * @return
+	 */
+	public Result users() {
+		List<User> users = userDAO.find();
+		return ok(Json.toJson(users));
+	}
 }
