@@ -4,6 +4,7 @@ import static play.test.Helpers.contentType;
 import java.util.Arrays;
 import org.junit.Test;
 import dao.entity.User;
+import static play.data.Form.*;
 import play.mvc.Content;
 
 
@@ -23,7 +24,7 @@ public class ApplicationTest {
     
     @Test
     public void renderTemplate() {
-        Content html = views.html.index.render("Your new application is ready.", Arrays.asList(new User[]{}));
+        Content html = views.html.index.render("Your new application is ready.", Arrays.asList(new User[]{}), form(User.class));
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("Your new application is ready.");
     }
