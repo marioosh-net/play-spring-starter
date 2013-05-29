@@ -1,10 +1,12 @@
 @(message: String, users: List[dao.entity.User], myForm: Form[dao.entity.User])
 @import helper._
+@*@import helper.twitterBootstrap._*@
 
 @main("Play2 + Spring3 + Hibernate3") {
     
     <h2>@message</h2>
     
+    <div class="left">
     @form(action = routes.Application.add()) {
         <fieldset>
 	        @inputText(
@@ -18,13 +20,15 @@
 	        )
         </fieldset>
         
-        <div class="actions">
-	        <input class="btn primary" type="submit" value="Add"/>
+        <div class="form-actions">
+	        <input class="btn btn-primary" type="submit" value="Add"/>
 	        <a href="/" class="btn">Cancel</a>
         </div>
     }
+    </div>
     
-    <h2>users</h2>
+    <div class="left">
+    <h2>Users list</h2>
     <table class="table">
     <thead>
         <tr>
@@ -41,4 +45,7 @@
     </tr>
     }
     </table>
+    </div>
+    
+    <div class="clear"></div>
 }

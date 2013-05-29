@@ -1,0 +1,16 @@
+@media screen and (min-width: 500px) {
+	.left {
+	   float: left;
+	   padding-right: 20px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+    .left {
+       float: none;
+    }
+}
+
+.clear {
+	clear: both;
+}
