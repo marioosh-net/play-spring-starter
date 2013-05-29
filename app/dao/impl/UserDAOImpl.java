@@ -25,4 +25,9 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
 	public void add(User u) {
 		getHibernateTemplate().save(u);
 	}
+	
+	@Override
+	public void delete(Long id) {
+		getHibernateTemplate().bulkUpdate("delete from User where id = ?", new Object[]{id});
+	}
 }

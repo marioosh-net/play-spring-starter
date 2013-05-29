@@ -29,6 +29,7 @@
     
     <div class="left">
     <h2>Users list</h2>
+    <form action="/delete2" method="POST">
     <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -39,12 +40,18 @@
     </thead>
     @for(u <- users) {
     <tr>
+        <td><input class="d" name="d" value="@u.getId()" type="checkbox"></td>
         <td>@u.getId()</td>
         <td>@u.getLogin()</td>
         <td>@u.getName()</td>
+        <td><a class="btn" href="/delete/@u.getId()">Delete</a></td>
     </tr>
     }
     </table>
+    <div class="actions">
+        <input id="da" type="submit" class="btn" value="Delete"/>
+    </div>
+    </form>    
     </div>
     
     <div class="clear"></div>

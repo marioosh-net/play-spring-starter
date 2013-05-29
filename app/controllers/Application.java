@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import play.Logger;
 import play.data.Form;
 import play.libs.Akka;
 import play.libs.F.Function;
@@ -51,6 +52,21 @@ public class Application extends Controller {
 		}
 		userDAO.add(userForm.get());
 		return index();
+	}
+	
+	public Result delete(Long id) {
+		userDAO.delete(id);
+		return index(); 
+	}
+	
+	public Result delete2() {
+		String[] l = request().body().asFormUrlEncoded().get("d");
+		if(l != null && l.length > 0) {
+			for(String s: l) {
+				userDAO.delete(Long.parseLong(s));
+			}
+		}
+		return index(); 
 	}
 
 }
