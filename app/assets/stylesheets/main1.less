@@ -1,0 +1,131 @@
+/* variables */
+@bcolor: #aaa;
+@font: 12px;
+
+/* simple usage */
+.class1 {
+    background-color: @bcolor;
+    color: @bcolor + #ffa111;
+}
+#id {
+    font-size: @font;
+}
+body {
+    color: @bcolor;
+}
+
+/* mixins */
+.bordered {
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+.border1 {
+    .bordered;
+    #id;
+    .class1;
+}
+
+/* mixins with parameters */
+.mixin1 (@size) {
+    font-weight: bold;
+    font-size: @size;
+}
+/* mixins with parameters and default values */
+.mixin2 (@size, @type: solid, @color: red) {
+    border: 1px @type @color;
+    border-top: @arguments; /* @arguments = arguments list */
+}
+.mixin3 (@color: #ff1) {
+    background-color: @color;
+}
+.noparam() {
+    display: inline;
+}
+.params {
+    .mixin1(10);
+    .mixin2(10, dotted);
+    .mixin2(10, solid, green);
+    .mixin3;
+    .noparam();
+}
+
+/* @rest */
+.mixin333 (...) {
+    color: @arguments;
+}
+.mixin (@a, @rest...) {
+    color: @a;
+    border: @rest
+}
+.mixin4 {
+    .mixin(#333, 1px, solid, silver);
+    .mixin333(#444);
+}
+
+/* mixin multi behaviour */
+.m(red, @a) {
+    color: f11;
+    font-size: @a;
+}
+.m(green, @a) {
+    color: #1f1;
+    font-size: @a;
+}
+.m(@a) {
+    border: @a;
+}
+.m(@a,@b) {
+    border: @a;
+    border: @b;
+}
+@switch: green;
+@switch1: red;
+.m1 {
+    .m(@switch, 10);
+    .m(@switch1, 20);
+}
+.m2 {
+    .m(1px, 2px);
+}
+.m3 {
+    .m(1px solid silver);
+}
+
+/* guards; WHEN keyword */
+.g (@a) when (lightness(@a) >= 50%) {
+  background-color: black;
+}
+.g (@a) when (lightness(@a) < 50%) {
+  background-color: white;
+}
+.g (@a) {
+  color: @a;
+}
+
+.class1 { .g(#ddd) }
+.class2 { .g(#555) }
+
+/* guards; functions IS* */
+@media: mobile;
+.g2 (@a) when (@media = mobile) { /* mobile css */ }
+.g2 (@a) when (@media = desktop) { /* desktop css */ }
+.g2 (@x) when (isnumber(@x)) { /* isnumber */ }
+.g2 (@x) when not (isnumber(@x)) { /* is not number */ }
+.g2 (@x) when (iscolor(@x)) { /* iscolor */ }
+.main {
+    .g2(1);
+    .g2(2);
+    .g2(#332);
+}
+
+/* guards; conditionals AND, NOT... */
+.g3 (@a) when (iscolor(@a)) and (@a = #aaa) {
+   text-decoration: none; 
+}
+.g3 (@a) {
+    /* g3 always */
+}
+.g3-call {
+    .g3(1);
+    .g3(#aaa);
+}
